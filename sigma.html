@@ -211,24 +211,60 @@
     </audio>
 
     <script>
-            const lyrics = [
-        "i've been mogging at the edge of Ohio", "long as i can remember", "solo-squadding in fortnite",
-        "i wish i could be a W sigma", "but i griddy back to ohio", "no matter how hard i try",
-        "every l i take", "every look i maxx", "every jelq i drake", "every drop leads back",
-        "to the map i know", "where i cannot go", "where i gyatt to be",
-        "see the edge where my rizz meets the sea", "on Skibidiii", "i gyatta go to ohioooo",
-        "if i just keep up my mewing streak", "while i griddy", "one day ill go",
-        "if i goon", "there is just no edging in ohio",
-        "i know every sigma in this lobby", "seems so W in this lobby", "everything is fanum tax",
-        "i know every sigma in this lobby", "has a meta in this lobby", "so maybe i should drop some mats",
-        "i can mew with pride", "i can carry squads", "ill be certified baby rizzler gronk",
-        "but the chat inside yaps a different song", "this is not bussiiingg",
-        "see the level 10 gyatt in the stream", "it mogs me", "cant let gang know i fw ohio",
-        "and it seems like its yapping out to me", "so DM me", "and let me know",
-        "whats beyond this map", "will i cross this map",
-        "see the edge where my rizz meets the sea", "on skibiddii", "i gyatta goooooo to ohioooooo",
-        "if i just keep up my mewing streak", "while i griddyyyy", "one day ill go to ohiooooooooo."
-    ];
+        const lyrics = [
+            { text: "I've been mogging at the edge of Ohio", time: 0 },
+            { text: "Long as I can remember, solo-squadding in Fortnite", time: 10 },
+            { text: "I wish I could be a W sigma", time: 20 },
+            { text: "But I griddy back to Ohio", time: 30 },
+            { text: "No matter how hard I try", time: 40 },
+            { text: "Every L I take, every look I maxx", time: 50 },
+            { text: "Every jelq I drake, every drop leads back", time: 60 },
+            { text: "To the map I know, where I cannot go", time: 70 },
+            { text: "Where I gyatt to be", time: 80 },
+            { text: "See the edge where my rizz meets the sea", time: 90 },
+            { text: "On Skibidiii I gyatta go to Ohio", time: 100 },
+            { text: "If I just keep up my mewing streak", time: 110 },
+            { text: "While I griddy, one day I'll go", time: 120 },
+            { text: "If I goon, there is just no edging in Ohio", time: 130 },
+            { text: "I know every sigma in this lobby", time: 140 },
+            { text: "Seems so W in this lobby", time: 150 },
+            { text: "Everything is fanum tax", time: 160 },
+            { text: "I know every sigma in this lobby", time: 170 },
+            { text: "Has a meta in this lobby", time: 180 },
+            { text: "So maybe I should drop some mats", time: 190 },
+            { text: "I can mew with pride", time: 200 },
+            { text: "I can carry squads", time: 210 },
+            { text: "I'll be certified baby rizzler gronk", time: 220 },
+            { text: "But the chat inside yaps a different song", time: 230 },
+            { text: "This is not bussiiingg", time: 240 },
+            { text: "See the level 10 gyatt in the stream", time: 250 },
+            { text: "It mogs me, can't let gang know", time: 260 },
+            { text: "I fw Ohio and it seems like it's yapping out to me", time: 270 },
+            { text: "So DM me and let me know what's beyond this map", time: 280 },
+            { text: "Will I cross this map", time: 290 },
+            { text: "See the edge where my rizz meets the sea", time: 300 },
+            { text: "On Skibidiii I gyatta go to Ohio", time: 310 },
+            { text: "If I just keep up my mewing streak", time: 320 },
+            { text: "While I griddy, one day I'll go", time: 330 },
+            { text: "To Ohiooooooo", time: 340 }
+        ];
+
+        let currentIndex = 0;
+
+        // Function to display lyrics
+        function displayLyrics() {
+            const container = document.getElementById("lyrics-container");
+
+            // Check if it's time to display the next lyric
+            if (currentIndex < lyrics.length && currentTime >= lyrics[currentIndex].time) {
+                let word = document.createElement("span");
+                word.innerText = lyrics[currentIndex].text;
+                word.className = "bouncing-word";
+                container.innerHTML = ''; // Clear previous lyric
+                container.appendChild(word);
+                currentIndex++;
+            }
+        }
         // Create an array of brain rot words
         const brainRotWords = [
             'Skibidi Rizz', 'Ohio Rules', 'Sigma Grindset', 'NPC Behavior', 'GYATT', 
@@ -251,20 +287,7 @@
             return { x, y };
         }
 
-        let currentIndex = 0;
-    function displayLyrics() {
-        const container = document.getElementById("lyrics-container");
-        container.innerHTML = "";  // Clear previous lyrics
-        if (currentIndex < lyrics.length) {
-            let word = document.createElement("span");
-            word.innerText = lyrics[currentIndex];
-            word.className = "bouncing-word";
-            container.appendChild(word);
-            currentIndex++;
-        }
-    }
-
-    setInterval(displayLyrics, 2500); // Adjust timing for bouncing
+      
         // Function to create brain rot words
         function createBrainRotWords() {
             const container = document.body;
