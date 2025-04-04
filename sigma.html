@@ -150,16 +150,7 @@
         .brain-rot:nth-child(41) { color: #00fa9a; } /* Big Brain */
         .brain-rot:nth-child(42) { color: #ffff00; } /* Vibe */
         
-        #jumpscareImage {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: 9999;
-    display: none;
-}
+
 
 @keyframes shake {
     0% { transform: translate(0, 0) rotate(0deg); }
@@ -218,7 +209,6 @@
         <source src="recording-2025-04-03-19-02-02 (online-audio-converter.com).mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
-<img id="jumpscareImage" src="https://i.pinimg.com/736x/78/ea/16/78ea16f21257f7d295d91808a8a1644c.jpg" alt="Jumpscare" style="display: none;">
 
     <script>
             const lyrics = [
@@ -303,18 +293,7 @@
         }
           
           
-     function showJumpscare() {
-        let img = document.getElementById("jumpscareImage");
-        img.style.display = "block";
-        img.style.animation = "shake 0.1s infinite"; // Spazzing fast
-
-        setTimeout(() => {
-            img.style.display = "none";
-            img.style.animation = ""; // Reset animation
-        }, 3000); // Image disappears after 3 seconds
-    }
-
-    setInterval(showJumpscare, 12000); // Jumpscare every 7 seconds
+     
 
 
         // Call the function to create brain rot words
