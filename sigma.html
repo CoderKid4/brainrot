@@ -175,6 +175,27 @@
     100% { transform: translate(0, 0) rotate(0deg); }
 }
 
+        #lyrics-container {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.bouncing-word {
+    display: inline-block;
+    animation: bounce 1s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); } /* Adjust for stronger bounce */
+}
+
 
 
     </style>
@@ -190,7 +211,7 @@
             <li><strong>Stay Focused</strong><span>Avoid distractions to maintain a productive learning environment.</span></li>
         </ul>
     </div>
-
+<div id="lyrics-container"></div>
     <!-- Background Brain Rot Song -->
     <audio autoplay loop>
         <source src="recording-2025-04-03-19-02-02 (online-audio-converter.com).mp3" type="audio/mp3">
@@ -199,6 +220,24 @@
 <img id="jumpscareImage" src="https://i.pinimg.com/736x/78/ea/16/78ea16f21257f7d295d91808a8a1644c.jpg" alt="Jumpscare" style="display: none;">
 
     <script>
+            const lyrics = [
+        "i've been mogging at the edge of Ohio", "long as i can remember", "solo-squadding in fortnite",
+        "i wish i could be a W sigma", "but i griddy back to ohio", "no matter how hard i try",
+        "every l i take", "every look i maxx", "every jelq i drake", "every drop leads back",
+        "to the map i know", "where i cannot go", "where i gyatt to be",
+        "see the edge where my rizz meets the sea", "on Skibidiii", "i gyatta go to ohioooo",
+        "if i just keep up my mewing streak", "while i griddy", "one day ill go",
+        "if i goon", "there is just no edging in ohio",
+        "i know every sigma in this lobby", "seems so W in this lobby", "everything is fanum tax",
+        "i know every sigma in this lobby", "has a meta in this lobby", "so maybe i should drop some mats",
+        "i can mew with pride", "i can carry squads", "ill be certified baby rizzler gronk",
+        "but the chat inside yaps a different song", "this is not bussiiingg",
+        "see the level 10 gyatt in the stream", "it mogs me", "cant let gang know i fw ohio",
+        "and it seems like its yapping out to me", "so DM me", "and let me know",
+        "whats beyond this map", "will i cross this map",
+        "see the edge where my rizz meets the sea", "on skibiddii", "i gyatta goooooo to ohioooooo",
+        "if i just keep up my mewing streak", "while i griddyyyy", "one day ill go to ohiooooooooo."
+    ];
         // Create an array of brain rot words
         const brainRotWords = [
             'Skibidi Rizz', 'Ohio Rules', 'Sigma Grindset', 'NPC Behavior', 'GYATT', 
@@ -221,6 +260,20 @@
             return { x, y };
         }
 
+        let currentIndex = 0;
+    function displayLyrics() {
+        const container = document.getElementById("lyrics-container");
+        container.innerHTML = "";  // Clear previous lyrics
+        if (currentIndex < lyrics.length) {
+            let word = document.createElement("span");
+            word.innerText = lyrics[currentIndex];
+            word.className = "bouncing-word";
+            container.appendChild(word);
+            currentIndex++;
+        }
+    }
+
+    setInterval(displayLyrics, 2500); // Adjust timing for bouncing
         // Function to create brain rot words
         function createBrainRotWords() {
             const container = document.body;
