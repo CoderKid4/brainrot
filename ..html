@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Rules</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        .rules-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            text-align: center;
+            width: 80%;
+            max-height: 90vh;
+            color: white;
+            animation: glow 2s infinite alternate;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            }
+            to {
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            }
+        }
+        h1 {
+            margin-bottom: 10px;
+            font-size: 1.8em;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        li {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 0.9em;
+            position: relative;
+            overflow: hidden;
+        }
+        li strong {
+            display: block;
+            cursor: pointer;
+        }
+        li span {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            width: 100%;
+        }
+        li:hover span {
+            display: block;
+            opacity: 1;
+        }
+        li:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+        .brain-rot {
+            position: absolute;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            animation: extreme-floaty 2s infinite ease-in-out alternate;
+            user-select: none;
+        }
+        @keyframes extreme-floaty {
+            from {
+                transform: translateY(0px) rotate(0deg);
+            }
+            to {
+                transform: translateY(-30px) rotate(360deg);
+            }
+        }
+        /* More brain rot colors */
+        .brain-rot:nth-child(1) { color: #ff007f; } /* Skibidi Rizz */
+        .brain-rot:nth-child(2) { color: #ffcc00; } /* Ohio Rules */
+        .brain-rot:nth-child(3) { color: #00ff00; } /* Sigma Grindset */
+        .brain-rot:nth-child(4) { color: #ff6600; } /* NPC Behavior */
+        .brain-rot:nth-child(5) { color: #00ffff; } /* GYATT */
+        .brain-rot:nth-child(6) { color: #800080; } /* SIGMa */
+        .brain-rot:nth-child(7) { color: #ff0099; } /* sigma boy */
+        .brain-rot:nth-child(8) { color: #ff4500; } /* YOLO */
+        .brain-rot:nth-child(9) { color: #ffff00; } /* Ligma */
+        .brain-rot:nth-child(10) { color: #0000ff; } /* Bozo */
+        .brain-rot:nth-child(11) { color: #00ff7f; } /* BIG CHUNGUS */
+        .brain-rot:nth-child(12) { color: #ff0000; } /* Brrr */
+        .brain-rot:nth-child(13) { color: #ff1493; } /* Among Us */
+        .brain-rot:nth-child(14) { color: #ff6347; } /* Poggers */
+        .brain-rot:nth-child(15) { color: #008080; } /* SUS */
+        .brain-rot:nth-child(16) { color: #ffff00; } /* No Cap */
+        .brain-rot:nth-child(17) { color: #adff2f; } /* Yeet */
+        .brain-rot:nth-child(18) { color: #800000; } /* Cringe */
+        .brain-rot:nth-child(19) { color: #ff7f50; } /* Lmao */
+        .brain-rot:nth-child(20) { color: #00008b; } /* Bruh */
+        .brain-rot:nth-child(21) { color: #ff00ff; } /* Facts */
+        .brain-rot:nth-child(22) { color: #00bfff; } /* Deadass */
+        .brain-rot:nth-child(23) { color: #ff8c00; } /* Big Mood */
+        .brain-rot:nth-child(24) { color: #9acd32; } /* I'm That Guy */
+        .brain-rot:nth-child(25) { color: #800080; } /* Flexing */
+        .brain-rot:nth-child(26) { color: #8b008b; } /* Respect the drip */
+        .brain-rot:nth-child(27) { color: #ff4500; } /* Chill Vibes */
+        .brain-rot:nth-child(28) { color: #2f4f4f; } /* Banger */
+        .brain-rot:nth-child(29) { color: #b22222; } /* Yasss */
+        .brain-rot:nth-child(30) { color: #f08080; } /* For Real */
+        .brain-rot:nth-child(31) { color: #ff1493; } /* Vibe Check */
+        .brain-rot:nth-child(32) { color: #7fff00; } /* Fire Emoji */
+        .brain-rot:nth-child(33) { color: #6495ed; } /* No Kappa */
+        .brain-rot:nth-child(34) { color: #8b0000; } /* Let's Go */
+        .brain-rot:nth-child(35) { color: #ffd700; } /* 100 */
+        .brain-rot:nth-child(36) { color: #ff6347; } /* Woke */
+        .brain-rot:nth-child(37) { color: #b0e0e6; } /* Giga Chad */
+        .brain-rot:nth-child(38) { color: #2e8b57; } /* Bussin */
+        .brain-rot:nth-child(39) { color: #f0e68c; } /* Cap */
+        .brain-rot:nth-child(40) { color: #d2691e; } /* Oof */
+        .brain-rot:nth-child(41) { color: #00fa9a; } /* Big Brain */
+        .brain-rot:nth-child(42) { color: #ffff00; } /* Vibe */
+        
+        #jumpscareImage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 9999;
+    display: none;
+}
+
+@keyframes shake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    10% { transform: translate(-5px, 5px) rotate(-2deg); }
+    20% { transform: translate(5px, -5px) rotate(2deg); }
+    30% { transform: translate(-5px, -5px) rotate(-2deg); }
+    40% { transform: translate(5px, 5px) rotate(2deg); }
+    50% { transform: translate(-3px, 3px) rotate(-1deg); }
+    60% { transform: translate(3px, -3px) rotate(1deg); }
+    70% { transform: translate(-3px, -3px) rotate(-1deg); }
+    80% { transform: translate(3px, 3px) rotate(1deg); }
+    90% { transform: translate(-2px, 2px) rotate(0deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="rules-container">
+        <h1>Classroom Rules</h1>
+        <ul>
+            <li><strong>Be Respectful</strong><span>No cursing, harassment, or talking back. Treat others with kindness and avoid rude language.</span></li>
+            <li><strong>Wait Your Turn</strong><span>No blurting. Raise your hand and wait your turn to ensure fairness.</span></li>
+            <li><strong>Be Responsible</strong><span>Own up to mistakes, follow rules, and make good choices.</span></li>
+            <li><strong>Be Kind</strong><span>Support and encourage classmates. No bullying or judgment.</span></li>
+            <li><strong>Stay Focused</strong><span>Avoid distractions to maintain a productive learning environment.</span></li>
+        </ul>
+    </div>
+
+    <!-- Background Brain Rot Song -->
+    <audio autoplay loop>
+        <source src="recording-2025-04-03-19-02-02 (online-audio-converter.com).mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+<img id="jumpscareImage" src="https://i.pinimg.com/736x/78/ea/16/78ea16f21257f7d295d91808a8a1644c.jpg" alt="Jumpscare" style="display: none;">
+
+    <script>
+        // Create an array of brain rot words
+        const brainRotWords = [
+            'Skibidi Rizz', 'Ohio Rules', 'Sigma Grindset', 'NPC Behavior', 'GYATT', 
+            'SIGMa', 'sigma boy', 'YOLO', 'Ligma', 'Bozo', 'BIG CHUNGUS', 'Brrr',
+            'Among Us', 'Poggers', 'SUS', 'No Cap', 'Yeet', 'Cringe', 'Lmao', 'Bruh',
+            'Facts', 'Deadass', 'Big Mood', 'I\'m That Guy', 'Flexing', 'Respect the drip',
+            'Chill Vibes', 'Banger', 'Yasss', 'For Real', 'Vibe Check', 'Fire Emoji',
+            'No Kappa', 'Let\'s Go', '100', 'Woke', 'Giga Chad', 'Bussin', 'Cap', 'Oof',
+            'Big Brain', 'Vibe', "Amogus", "AI Sponge", "AUGHHHH", "Baby Gronk", "BBL Drizzy", "Biggest bird", "Blud", "Bussin'", 
+        "Cap", "Chad", "Cringe", "Dog", "Delulu", "Destroy Lonely wolves", "Do you like my sword?", 
+        "Elon Musk", "Emotional Damage", "FEAN", "Fortnite Battle Pass", "Grimace Shake", "Gyatt", 
+        "Homander", "Haktua", "IShowSpeed", "Kai Cenat", "Ligma", "Looksmaxxing", "Mewing", "Morbin time", 
+        "Ohio"
+        ];
+
+        // Function to generate random positions
+        function getRandomPosition(minX, maxX, elementWidth, elementHeight) {
+            const x = Math.random() * (maxX - minX - elementWidth) + minX;
+            const y = Math.random() * (window.innerHeight - elementHeight);
+            return { x, y };
+        }
+
+        // Function to create brain rot words
+        function createBrainRotWords() {
+            const container = document.body;
+            brainRotWords.forEach((word, index) => {
+                const brainRotElement = document.createElement('div');
+                brainRotElement.classList.add('brain-rot');
+                brainRotElement.textContent = word;
+
+                // Randomize the font size
+                const randomSize = Math.random() * (4 - 1) + 1; // Random size between 1 and 4
+                brainRotElement.style.fontSize = `${randomSize}em`;
+
+                // Calculate a random position within the window bounds
+                const { x, y } = getRandomPosition(0, window.innerWidth, 200, 50);
+
+                // Set the position of the element
+                brainRotElement.style.left = `${x}px`;
+                brainRotElement.style.top = `${y}px`;
+
+                // Set a random animation delay to make it even more chaotic
+                brainRotElement.style.animationDelay = `${Math.random() * 5}s`;
+
+                // Append the brain rot word to the body
+                container.appendChild(brainRotElement);
+            });
+        }
+          
+          
+     function showJumpscare() {
+        let img = document.getElementById("jumpscareImage");
+        img.style.display = "block";
+        img.style.animation = "shake 0.1s infinite"; // Spazzing fast
+
+        setTimeout(() => {
+            img.style.display = "none";
+            img.style.animation = ""; // Reset animation
+        }, 3000); // Image disappears after 3 seconds
+    }
+
+    setInterval(showJumpscare, 12000); // Jumpscare every 7 seconds
+
+
+        // Call the function to create brain rot words
+        createBrainRotWords();
+    </script>
+</body>
+</html>
