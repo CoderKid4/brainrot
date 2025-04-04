@@ -175,15 +175,16 @@
     100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-        #lyrics-container {
+#lyrics-container {
     position: absolute;
     bottom: 10%;
     width: 100%;
     text-align: center;
-    font-size: 2rem;
+    font-size: 5rem; /* Increased size */
     color: white;
     font-weight: bold;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    z-index: 99999; /* Ensure it's above everything else */
 }
 
 .bouncing-word {
