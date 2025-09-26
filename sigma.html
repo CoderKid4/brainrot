@@ -315,7 +315,209 @@
             });
         }
           
-          
+          // Paste this whole block into any HTML page (inside <script> or an external .js file)
+// Works in the user's local time (uses the browser clock).
+
+(function() {
+  // --- Configuration (school schedule) ---
+  // Weekdays: Monday=1 .. Sunday=0 (Date.getDay())
+  const regularStart = { h: 8, m: 0 };     // 08:00
+  const regularEnd   = { h: 14, m: 40 };   // 14:40
+  const wedStart     = { h: 10, m: 20 };   // Wednesday special start 10:20
+  const wedEnd       = { h: 15, m: 40 };   // Wednesday special end 15:40
+  const redirectUrl  = "https://issaquah.instructure.com/";
+  const requiredWord = "sorry"; // exact required apology (case-insensitive, trimmed)
+  // ---------------------------------------
+
+  function minutesSinceMidnight(d) {
+    return d.getHours() * 60 + d.getMinutes();
+  }
+
+  function isSchoolTime(now) {
+    const day = now.getDay(); // 0 Sun ... 6 Sat
+    if (day === 0 || day === 6) return false; // weekend: not school
+    const mins = minutesSinceMidnight(now);
+    if (day === 3) { // Wednesday (3)
+      const s = wedStart.h * 60 + wedStart.m;
+      const e = wedEnd.h * 60 + wedEnd.m;
+      return mins >= s && mins <= e;
+    } else { // Mon, Tue, Thu, Fri
+      const s = regularStart.h * 60 + regularStart.m;
+      const e = regularEnd.h * 60 + regularEnd.m;
+      return mins >= s && mins <= e;
+    }
+  }
+
+  function createModal() {
+    // Create overlay
+    const overlay = document.createElement("div");
+    overlay.id = "school-block-overlay";
+    Object.assign(overlay.style, {
+      position: "fixed",
+      inset: "0",
+      background: "rgba(0,0,0,0.75)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: "2147483647", // maximum safe z-index so it sits on top
+      fontFamily: "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
+      color: "#fff",
+      padding: "20px",
+      boxSizing: "border-box"
+    });
+
+    // Create modal card
+    const card = document.createElement("div");
+    Object.assign(card.style, {
+      maxWidth: "520px",
+      width: "100%",
+      background: "#111",
+      borderRadius: "12px",
+      padding: "22px",
+      boxSizing: "border-box",
+      boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
+      textAlign: "center"
+    });
+
+    // Title
+    const title = document.createElement("h2");
+    title.textContent = "This site is blocked during school hours";
+    Object.assign(title.style, { margin: "0 0 12px", fontSize: "20px", lineHeight: "1.2" });
+
+    // Message / schedule hint
+    const msg = document.createElement("p");
+    msg.innerHTML = "It's school time. Type <strong>sorry</strong> below to apologize and continue.<br><small>(Mon–Fri 08:00–14:40; Wed 10:20–15:40)</small>";
+    Object.assign(msg.style, { margin: "8px 0 18px", color: "#ddd" });
+
+    // Input
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Type sorry to apologize";
+    Object.assign(input.style, {
+      width: "100%",
+      padding: "10px 12px",
+      fontSize: "16px",
+      borderRadius: "8px",
+      border: "1px solid rgba(255,255,255,0.12)",
+      background: "#0f0f0f",
+      color: "#fff",
+      outline: "none",
+      boxSizing: "border-box"
+    });
+
+    // Buttons container
+    const btnRow = document.createElement("div");
+    Object.assign(btnRow.style, { marginTop: "12px", display: "flex", gap: "8px", justifyContent: "center" });
+
+    // Apologize button
+    const okBtn = document.createElement("button");
+    okBtn.textContent = "Apologize";
+    Object.assign(okBtn.style, {
+      padding: "10px 16px",
+      fontSize: "15px",
+      borderRadius: "8px",
+      border: "none",
+      cursor: "pointer",
+      background: "#147efb",
+      color: "#fff"
+    });
+
+    // Try button (will redirect if text not 'sorry')
+    const tryBtn = document.createElement("button");
+    tryBtn.textContent = "Submit";
+    Object.assign(tryBtn.style, {
+      padding: "10px 16px",
+      fontSize: "15px",
+      borderRadius: "8px",
+      border: "1px solid rgba(255,255,255,0.08)",
+      background: "transparent",
+      color: "#fff",
+      cursor: "pointer"
+    });
+
+    // Tiny hint text for mischief
+    const hint = document.createElement("div");
+    hint.textContent = "If you type anything else, you'll be sent to the school's page.";
+    Object.assign(hint.style, { fontSize: "12px", color: "#aaa", marginTop: "10px" });
+
+    btnRow.appendChild(okBtn);
+    btnRow.appendChild(tryBtn);
+    card.appendChild(title);
+    card.appendChild(msg);
+    card.appendChild(input);
+    card.appendChild(btnRow);
+    card.appendChild(hint);
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+
+    // Prevent page scroll and interaction behind modal
+    const prevOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+
+    // focus
+    input.focus();
+
+    // Handlers
+    function unlockIfSorry() {
+      const val = (input.value || "").trim().toLowerCase();
+      if (val === requiredWord) {
+        // remove modal and restore scrolling
+        document.documentElement.style.overflow = prevOverflow || "";
+        overlay.remove();
+        // done
+        return true;
+      } else {
+        // redirect
+        window.location.href = redirectUrl;
+        return false;
+      }
+    }
+
+    okBtn.addEventListener("click", unlockIfSorry);
+    tryBtn.addEventListener("click", unlockIfSorry);
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") unlockIfSorry();
+    });
+
+    // Block common ways to escape: clicking, right-click, selecting behind overlay
+    overlay.addEventListener("click", function(e) {
+      // clicking outside the card won't close anything — keep them trapped
+      if (e.target === overlay) input.focus();
+    });
+
+    // prevent context menu to discourage dumb workarounds
+    overlay.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+
+    // trap focus inside the modal (simple)
+    document.addEventListener("focus", function trapFocus(e) {
+      if (!overlay.contains(e.target)) {
+        e.stopPropagation();
+        input.focus();
+      }
+    }, true);
+  }
+
+  // Run on load
+  function boot() {
+    try {
+      const now = new Date();
+      if (isSchoolTime(now)) {
+        createModal();
+      } // else do nothing, let the site load normally
+    } catch (err) {
+      // fail open if something weird happens (so we don't break the page)
+      console.error("School-block script error:", err);
+    }
+  }
+
+  // If DOM already ready run, otherwise wait
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    setTimeout(boot, 0);
+  } else {
+    document.addEventListener("DOMContentLoaded", boot);
+  }
+})();
+
      
 
 
