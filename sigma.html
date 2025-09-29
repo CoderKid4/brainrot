@@ -321,7 +321,6 @@
   const wedStart     = { h: 10, m: 20 };
   const wedEnd       = { h: 15, m: 40 };
   const redirectUrl  = "https://issaquah.instructure.com/";
-  const requiredWord = "sorry"; 
 
   function minutesSinceMidnight(d) {
     return d.getHours() * 60 + d.getMinutes();
@@ -364,7 +363,7 @@
     Object.assign(title.style, { margin: "0 0 12px", fontSize: "20px", lineHeight: "1.2" });
 
     const msg = document.createElement("p");
-    msg.innerHTML = "It's school time. Type <strong>sorry</strong> below to apologize.";
+    msg.innerHTML = "It's school time. Type <strong>sorry</strong> below to apologize.<br><small>(Mon–Fri 08:00–14:40; Wed 10:20–15:40)</small>";
     Object.assign(msg.style, { margin: "8px 0 18px", color: "#ddd" });
 
     const input = document.createElement("input");
@@ -391,42 +390,16 @@
     overlay.appendChild(card);
     document.body.appendChild(overlay);
 
-    const prevOverflow = document.documentElement.style.overflow;
-    document.documentElement.style.overflow = "hidden";
     input.focus();
 
-    function checkInput() {
-      const val = (input.value || "").trim().toLowerCase();
-      if (val === requiredWord) {
-        // 70% chance let them in, 30% redirect
-        if (Math.random() < 0.7) {
-          document.documentElement.style.overflow = prevOverflow || "";
-          overlay.remove();
-        } else {
-          window.location.href = redirectUrl;
-        }
-      } else {
-        window.location.href = redirectUrl;
-      }
+    function alwaysRedirect() {
+      window.location.href = redirectUrl;
     }
 
-    btn.addEventListener("click", checkInput);
+    btn.addEventListener("click", alwaysRedirect);
     input.addEventListener("keydown", function(e) {
-      if (e.key === "Enter") checkInput();
+      if (e.key === "Enter") alwaysRedirect();
     });
-
-    overlay.addEventListener("click", function(e) {
-      if (e.target === overlay) input.focus();
-    });
-
-    overlay.addEventListener("contextmenu", function(e) { e.preventDefault(); });
-
-    document.addEventListener("focus", function trapFocus(e) {
-      if (!overlay.contains(e.target)) {
-        e.stopPropagation();
-        input.focus();
-      }
-    }, true);
   }
 
   function boot() {
@@ -444,9 +417,6 @@
     document.addEventListener("DOMContentLoaded", boot);
   }
 })();
-
-
-     
 
 
         // Call the function to create brain rot words
